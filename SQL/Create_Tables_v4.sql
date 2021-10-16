@@ -1,15 +1,3 @@
-Delete from OrderLines;
-Delete from Orders;
-Delete from Products;
-Delete from ProductTypes;
-Delete from Categories;
-Delete from Users;
-Delete from RoleTypes;
-Delete from PaymentTypes;
-Delete from TransactionTypes
-Delete from Transactions;
-
-
 DROP TABLE IF EXISTS dbo.Categories
 
 CREATE TABLE dbo.Categories
@@ -19,7 +7,7 @@ CREATE TABLE dbo.Categories
 	CategoryImageUrl varchar(500) NULL
 )
 
-DROP TABLE IF EXISTS dbo.ProducTypes;
+DROP TABLE IF EXISTS dbo.ProductTypes;
 
 CREATE TABLE dbo.ProductTypes
 (
