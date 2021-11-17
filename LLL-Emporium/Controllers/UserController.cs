@@ -47,10 +47,6 @@ namespace LLL_Emporium.Controllers
         public IActionResult GetUserWithRoleByEmail(string emailAddress)
         {
             var user = _userRepository.GetUserWithRoleByUserEmail(emailAddress);
-            if (user == null)
-            {
-                return NotFound("No user found.");
-            }
             return Ok(user);
         }
 
