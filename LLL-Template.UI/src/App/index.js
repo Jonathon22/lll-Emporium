@@ -35,7 +35,8 @@ export default function App() {
           if (responseObj !== '') {
             setUser(responseObj);
           } else setUser(false);
-        });
+        })
+          .catch(() => setUser(false));
         getCategories().then((categoryArray) => setCategories(categoryArray));
         getProductTypes().then((response) => setProductTypes(response));
         getProducts().then((response) => setProducts(response));
