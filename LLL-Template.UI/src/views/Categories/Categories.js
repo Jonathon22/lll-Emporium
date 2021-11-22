@@ -36,19 +36,16 @@ export const Categories = ({ user, categories, setCategories }) => {
   return (
     <CategoryContainer className="CategoryContainer" id="CategoryContainer">
       <CategoryWrapper className="CategoryWrapper" id="Categories">
+      <AddButtonContainer className="AddButtonContainer">
           {
-            user !== null
-            && <AddButtonContainer className="AddButtonContainer">
-              {
-                (user)
-                  ? <AddCategoryButton className="addCategory" onClick={openModal}>
-                      <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
-                      </AddCategoryButtonImg>
-                    </AddCategoryButton>
-                  : <div></div>
-              }
-              </AddButtonContainer>
-            }
+            user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator'
+              ? <AddCategoryButton className="addCategory" onClick={openModal}>
+                  <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
+                  </AddCategoryButtonImg>
+                  </AddCategoryButton>
+              : <div></div>
+          }
+          </AddButtonContainer>
             <Modal
               isOpen={modalIsOpen}
               className="Modal"

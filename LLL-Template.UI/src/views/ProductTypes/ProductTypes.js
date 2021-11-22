@@ -36,17 +36,14 @@ export const ProductTypes = ({
     <ProductTypeContainer className="ProductTypeContainer" id="ProductTypeContainer">
       <ProductTypeWrapper className="ProductTypeWrapper" id="ProductType">
           {
-            user !== null
-            && <AddButtonContainer className="AddButtonContainer">
-              {
-                (user)
-                  ? <AddProductTypeButton className="addProductType" onClick={openModal}>
-                      <AddProductTypeButtonImg className="AddProductTypeButtonImg" src={add}>
-                      </AddProductTypeButtonImg>
-                    </AddProductTypeButton>
-                  : <div></div>
-              }
-              </AddButtonContainer>
+            user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator'
+              ? <AddButtonContainer className="AddButtonContainer">
+                  <AddProductTypeButton className="addProductType" onClick={openModal}>
+                    <AddProductTypeButtonImg className="AddProductTypeButtonImg" src={add}>
+                    </AddProductTypeButtonImg>
+                  </AddProductTypeButton>
+                </AddButtonContainer>
+              : <div></div>
             }
             <Modal
               isOpen={modalIsOpen}

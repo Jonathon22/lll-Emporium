@@ -145,10 +145,10 @@ function Routes({
           products={products}
           setProducts={setProducts}
         />
-        <Route exact path="/PersonalProfile" component={PersonalProfile} />
-        <Route exact path="/OrderHistory" component={() => <OrderHistory
+        <PrivateRoute exact path="/PersonalProfile" component={PersonalProfile} />
+        <PrivateRoute exact path="/OrderHistory" component={() => <OrderHistory
           user={user} />} />
-        <Route exact path="/SellingHistory"
+        <PrivateRoute exact path="/SellingHistory"
           component={() => (
           <SellingHistory
           user={user}
@@ -159,9 +159,9 @@ function Routes({
           products={products}
           setProducts={setProducts}
           />
-        <Route exact path="/Users" component={userCardView} />
+        <PrivateRoute exact path="/Users" component={userCardView} />
         <Route exact path="/Designers" component={() => <Designers />} />
-        <Route
+        <PrivateRoute
           exact
           path="/orders/:orderId"
           component={() => <OrderDetailView
@@ -169,7 +169,7 @@ function Routes({
             setCartCount={setCartCount}
             setCartId={setCartId} />}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/Users/RoleTypes"
           component={() => <RoleTypeView />}

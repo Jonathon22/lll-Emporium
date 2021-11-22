@@ -57,7 +57,7 @@ export const ProductTypeCards = ({
     <PTCard className='PTCard' key={id} id='PTCard'>
       <PTCardHeader className='PTCardHeader'>
       {
-            user !== null
+            user.roleTypeName === 'Administrator'
             && <div className="PTCardHeader" id="authButtons">
               {
                 (user)

@@ -54,12 +54,10 @@ export const CategoryCards = ({
   return (
     <CategoryCard className='CategoryCard' key={id} id='CategoryCard'>
       <CategoryCardHeader className='CategoryCardHeader'>
+      <div className="CategoryCardHeader" id="authButtons">
       {
-            user !== null
-            && <div className="CategoryCardHeader" id="authButtons">
-              {
-                (user)
-                  ? <CategoryCardButtons className='CategoryCardButtons'>
+            user.roleTypeName === 'Administrator'
+              ? <CategoryCardButtons className='CategoryCardButtons'>
                       <Button1 className="editCategory" id='editCategory' onClick={openModal}>
                         <CategoryCardEdit
                           className='CategoryCardEditImage'
@@ -73,10 +71,9 @@ export const CategoryCards = ({
                         ></CategoryCardDelete>
                       </Button1>
                     </CategoryCardButtons>
-                  : <div></div>
+              : <div></div>
               }
-              </div>
-            }
+            </div>
       </CategoryCardHeader>
       <Button className="CategoryCardButton">
         <CategoryCardImg className='CategoryCardImg' src={categoryImageUrl} onClick={() => handleClick('view')} />

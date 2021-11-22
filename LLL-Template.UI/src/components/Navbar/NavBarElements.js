@@ -227,3 +227,7 @@ export const DropDown = styled.div`
     // color: white;
   }
 `;
+
+export const Column = styled.div`
+  flex-direction: column;
+`;

@@ -15,6 +15,7 @@ import {
   SidebarRoute2,
   NavBarImg1,
   Button,
+  Column,
 } from './SidebarElements';
 import logo from '../../Assets/NavBarIcons/LOGO.png';
 
@@ -59,18 +60,40 @@ export default function Sidebar({
           <SidebarRoute className="Link" to="/Designers" onClick={toggle}>
             designers
           </SidebarRoute>
-          <SidebarRoute className="Link" to="/PersonalProfile" onClick={toggle}>
-            account
-          </SidebarRoute>
-          <SidebarRoute className="Link" to="/OrderHistory" onClick={toggle}>
-            order history
-          </SidebarRoute>
-          <SidebarRoute className="Link" to="/SellingHistory" onClick={toggle}>
-            sales
-          </SidebarRoute>
-          <SidebarRoute className="Link" to="/Users" onClick={toggle}>
-            users
-          </SidebarRoute>
+          {
+            user !== null
+            && <div className="SidebarRoute">
+              {
+                (user)
+                  ? <div>
+                    <SidebarRoute className="Link" to="/PersonalProfile" onClick={toggle}>
+                      account
+                    </SidebarRoute>
+                    <SidebarRoute className="Link" to="/OrderHistory" onClick={toggle}>
+                      order history
+                    </SidebarRoute>
+                    <Column>
+                      {
+                        (user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator')
+                          ? <Column>
+                              <SidebarRoute className="Link" to="/SellingHistory" onClick={toggle}>
+                                sales
+                              </SidebarRoute>
+                              {
+                                (user.roleTypeName === 'Administrator')
+                                  ? <SidebarRoute className="Link" to="/Users" onClick={toggle}>
+                                      users
+                                    </SidebarRoute>
+                                  : <div></div>
+                              } </Column>
+                          : <div></div>
+                      }
+                   </Column>
+                  </div>
+                  : <div></div>
+              }
+              </div>
+            }
         </SidebarMenu>
         <SideBtnWrap className="SideBtnWrap">
           <SidebarRoute2 className="SidebarRoute" onClick={toggle}>

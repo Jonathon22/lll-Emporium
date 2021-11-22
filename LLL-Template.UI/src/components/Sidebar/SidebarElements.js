@@ -124,3 +124,7 @@ border: none;
 cursor:pointer;
 overflow: hidden; 
 `;
+
+export const Column = styled.div`
+  flex-direction: column;
+`;

@@ -32,20 +32,18 @@ function Products({
   return (
     <ProductContainer className='ProductContainer' id='ProductContainer'>
       <ProductWrapper className='ProductWrapper' id='Products'>
-        {user !== null && (
-          <AddButtonContainer className='AddButtonContainer'>
-            {user ? (
-              <AddProductButton className='addProduct' onClick={openModal}>
-                <AddProductButtonImg
-                  className='AddProductButtonImg'
-                  src={add}
-                ></AddProductButtonImg>
-              </AddProductButton>
-            ) : (
-              <div></div>
-            )}
-          </AddButtonContainer>
-        )}
+        {
+          user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator'
+            ? <AddButtonContainer className='AddButtonContainer'>
+                <AddProductButton className='addProduct' onClick={openModal}>
+                  <AddProductButtonImg
+                    className='AddProductButtonImg'
+                    src={add}
+                  />
+                </AddProductButton>
+              </AddButtonContainer>
+            : <div></div>
+        }
         <Modal isOpen={modalIsOpen} className='Modal'>
           <Button className='modalClose' onClick={closeModal}>
             <ButtonImg src={deleted} />
@@ -65,6 +63,7 @@ function Products({
               id={productInfo.id}
               productImageUrl={productInfo.productImageUrl}
               productName={productInfo.productName}
+              designerId={productInfo.designerId}
               productDescription={productInfo.productDescription}
               price={productInfo.price}
               setProducts={setProducts}

@@ -46,20 +46,17 @@ export default function SingleProductTypeView({
   return (
     <CategoryContainer className='CategoryContainer' id='CategoryContainer'>
       <CategoryWrapper className='CategoryWrapper' id='Categories'>
-        {user !== null && (
-          <AddButtonContainer className='AddButtonContainer'>
-            {user ? (
+        {user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator'
+          ? <AddButtonContainer className='AddButtonContainer'>
               <AddCategoryButton className='addCategory' onClick={openModal}>
                 <AddCategoryButtonImg
                   className='AddCategoryButtonImg'
                   src={add}
                 ></AddCategoryButtonImg>
               </AddCategoryButton>
-            ) : (
-              <div></div>
-            )}
-          </AddButtonContainer>
-        )}
+              </AddButtonContainer>
+          : <div></div>
+        }
         <Modal isOpen={modalIsOpen} className='Modal'>
           <Button className='modalClose' onClick={closeModal}>
             <ButtonImg src={deleted} />
