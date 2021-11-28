@@ -14,6 +14,7 @@ import { getUserWithRoleByEmail } from '../helpers/data/userData';
 import { getShoppingCart } from '../helpers/data/orderData';
 import { getLineItemsByOrderId } from '../helpers/data/lineItemData';
 import { calculateCartCount } from '../helpers/data/calculators';
+import { CartProvider } from '../helpers/cartContext';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
@@ -22,8 +23,9 @@ export default function App() {
   const [user, setUser] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [cartId, setCartId] = useState('');
-  const cartCount = useRef(0);
-
+  const [cartCount, setCartCount] = useState(0);
+  const countRef = useRef();
+  countRef.current = setCartCount;
   const toggle = () => {
     setIsOpen(!isOpen);
   };
@@ -61,20 +63,20 @@ export default function App() {
           setCartId(cart.id);
           getLineItemsByOrderId(cart.id)
             .then((itemList) => {
-              cartCount.current = (calculateCartCount(itemList));
+              setCartCount(calculateCartCount(itemList));
             })
             .catch(() => {
-              cartCount.current = 0;
+              setCartCount(0);
               setCartId(cart.id);
             });
         } else {
           setCartId('');
-          cartCount.current = 0;
+          setCartCount(0);
         }
       });
     } else {
       setCartId('');
-      cartCount.current = 0;
+      setCartCount(0);
     }
     return () => {
       mounted = false;
@@ -84,6 +86,7 @@ export default function App() {
 
   return (
     <div className='App'>
+      <CartProvider value={cartCount}>
       <Router>
         <Sidebar isOpen={isOpen} toggle={toggle} user={user} />
         <NavBar toggle={toggle} user={user}
@@ -91,11 +94,12 @@ export default function App() {
         <Routes user={user} setUser={setUser}
                 categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
                 products={products} setProducts={setProducts}
-                ref={cartCount}
+                ref={countRef}
                 cartId={cartId} setCartId={setCartId}
         />
         <Footer />
       </Router>
+      </CartProvider>
     </div>
   );
 }
