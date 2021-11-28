@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { useParams } from 'react-router-dom';
@@ -38,11 +38,9 @@ import {
   calculateTotalPayments,
   calculateShippingCost
 } from '../../helpers/data/calculators';
-// import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
 import LineItemsCartForm from '../../components/Forms/LineItems/LineItemsCartForm';
 import OrderShippingPayment from '../../components/Cards/OrderHistoryCards/OrderShippingPayment';
 import { getOrderLinesWithProduct } from '../../helpers/data/lineItemData';
-// import { getLineItemsByOrderId } from '../../helpers/data/lineItemData';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -85,12 +83,12 @@ const testButtonEnabled = (order, paymentType, transaction) => {
   return (enabled && validAccount && zipValid);
 };
 
-const OrderDetailView = ({
+const OrderDetailView = forwardRef(({
   user,
-  setCartCount,
   cartId,
   setCartId
-}) => {
+},
+ref) => {
   const { orderId } = useParams();
   const [authed, setAuthed] = useState(null);
   const [order, setOrder] = useState(null);
@@ -324,7 +322,8 @@ const OrderDetailView = ({
         if (responseList.length > 0) {
           setHasTransactions(true);
           // This is not a cart anymore if there are payments.
-          setCartCount(0);
+          /* eslint-disable no-param-reassign */
+          ref.current = 0;
           setCartId('');
         }
       });
@@ -350,7 +349,7 @@ const OrderDetailView = ({
                 toggleQuantitiesUpdated={toggleQuantitiesUpdated}
                 toggleLineItemRemoved={toggleLineItemRemoved}
                 hasTransactions={hasTransactions}
-                setCartCount={setCartCount}
+                ref={ref}
               />
             </OrderLineItemsDiv>
           </OrderLineItemsOuterDiv>
@@ -424,12 +423,11 @@ const OrderDetailView = ({
       </OrderOuterDiv>}
     </>
   );
-};
+});
 
 OrderDetailView.propTypes = {
   user: PropTypes.any,
   orderId: PropTypes.string,
-  setCartCount: PropTypes.func,
   cartId: PropTypes.string,
   setCartId: PropTypes.func
 };

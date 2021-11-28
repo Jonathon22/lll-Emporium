@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Home from '../views/Home/Home';
@@ -31,15 +31,13 @@ PrivateRoute.propTypes = {
   user: PropTypes.any,
 };
 
-function Routes({
+const Routes = forwardRef(({
   user, setUser,
   categories, setCategories,
   productTypes, setProductTypes,
   products, setProducts,
-  setCartCount,
   cartId, setCartId
-}) {
-  return (
+}, ref) => (
     <div>
       <Switch>
         <Route
@@ -137,7 +135,7 @@ function Routes({
               productTypes={productTypes}
               setProductTypes={setProductTypes}
               products={products} setProducts={setProducts}
-              setCartCount={setCartCount}
+              ref={ref}
               cartId={cartId} setCartId={setCartId}
               user={user}
             />
@@ -171,7 +169,7 @@ function Routes({
           user={user}
           component={() => <OrderDetailView
             user={user}
-            setCartCount={setCartCount}
+            ref={ref}
             cartId={cartId}
             setCartId={setCartId} />}
         />
@@ -186,8 +184,9 @@ function Routes({
         <Route path="*" />
       </Switch>
     </div>
-  );
-}
+));
+
+Routes.displayName = Routes;
 
 Routes.propTypes = {
   user: PropTypes.any,
@@ -198,7 +197,6 @@ Routes.propTypes = {
   setProducts: PropTypes.func,
   productTypes: PropTypes.any,
   setProductTypes: PropTypes.func,
-  setCartCount: PropTypes.func,
   cartId: PropTypes.string,
   setCartId: PropTypes.func
 };

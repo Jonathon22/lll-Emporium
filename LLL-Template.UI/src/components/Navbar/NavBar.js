@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaBars } from 'react-icons/fa';
@@ -39,11 +39,10 @@ const scrollWithOffset = (el) => {
   window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
 };
 
-export default function NavBar({
+const NavBar = forwardRef(({
   toggle, user,
-  cartCount, cartId
-}) {
-  return (
+  cartId
+}, ref) => (
     <NavigationBar className="NavigationBar">
       <NavLeft className="NavLeft">
         <NavItemsLeft className="NavItemsLeft">
@@ -113,7 +112,7 @@ export default function NavBar({
                   ? <NavRightButtonsDiv>
                       <SearchBar/>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
-                      <CartIcon cartCount={cartCount} cartId={cartId} />
+                      <CartIcon ref={ref} cartId={cartId} />
                     </NavRightButtonsDiv>
                   : <NavRightButtonsDiv>
                       <SearchBar/>
@@ -128,12 +127,14 @@ export default function NavBar({
         </NavItemsRight>
       </NavRight>
     </NavigationBar>
-  );
-}
+));
+
+NavBar.displayName = NavBar;
 
 NavBar.propTypes = {
   toggle: PropTypes.any,
   user: PropTypes.any,
-  cartCount: PropTypes.number,
   cartId: PropTypes.string
 };
+
+export default NavBar;

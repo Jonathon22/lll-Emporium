@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -22,7 +22,7 @@ export default function App() {
   const [user, setUser] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [cartId, setCartId] = useState('');
-  const [cartCount, setCartCount] = useState(0);
+  const cartCount = useRef(0);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -61,20 +61,20 @@ export default function App() {
           setCartId(cart.id);
           getLineItemsByOrderId(cart.id)
             .then((itemList) => {
-              setCartCount(calculateCartCount(itemList));
+              cartCount.current = (calculateCartCount(itemList));
             })
             .catch(() => {
-              setCartCount(0);
+              cartCount.current = 0;
               setCartId(cart.id);
             });
         } else {
           setCartId('');
-          setCartCount(0);
+          cartCount.current = 0;
         }
       });
     } else {
       setCartId('');
-      setCartCount(0);
+      cartCount.current = 0;
     }
     return () => {
       mounted = false;
@@ -87,11 +87,11 @@ export default function App() {
       <Router>
         <Sidebar isOpen={isOpen} toggle={toggle} user={user} />
         <NavBar toggle={toggle} user={user}
-          cartCount={cartCount} cartId={cartId}/>
+          ref={cartCount} cartId={cartId}/>
         <Routes user={user} setUser={setUser}
                 categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
                 products={products} setProducts={setProducts}
-                setCartCount={setCartCount}
+                ref={cartCount}
                 cartId={cartId} setCartId={setCartId}
         />
         <Footer />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -8,15 +8,14 @@ import {
 } from './LineItemsCartFormElements';
 import CartLineItem from '../../Cards/OrderHistoryCards/CartLineItem';
 
-const LineItemsCartForm = ({
+const LineItemsCartForm = forwardRef(({
   order,
   user,
   lineItemsList,
   toggleQuantitiesUpdated,
   toggleLineItemRemoved,
   hasTransactions,
-  setCartCount
-}) => {
+}, ref) => {
   const [formList, setFormList] = useState([]);
   // const [quantity, setQuantity] = useState([]);
 
@@ -42,12 +41,14 @@ const LineItemsCartForm = ({
             toggleQuantitiesUpdated={toggleQuantitiesUpdated}
             toggleLineItemRemoved={toggleLineItemRemoved}
             hasTransactions={hasTransactions}
-            setCartCount={setCartCount} />
+            ref={ref} />
           </OrderLineItemsLI>) : '' }
       </OrderLineItemsUL>
     </OrderLineItemsFormOuterDiv>
   );
-};
+});
+
+LineItemsCartForm.displayName = LineItemsCartForm;
 
 LineItemsCartForm.propTypes = {
   order: PropTypes.object,
@@ -56,7 +57,6 @@ LineItemsCartForm.propTypes = {
   toggleQuantitiesUpdated: PropTypes.func,
   toggleLineItemRemoved: PropTypes.func,
   hasTransactions: PropTypes.bool,
-  setCartCount: PropTypes.func
 };
 
 export default LineItemsCartForm;

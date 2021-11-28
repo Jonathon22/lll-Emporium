@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
@@ -14,15 +14,14 @@ import {
 } from './CartLineItemElements';
 import { calculateCartCount } from '../../../helpers/data/calculators';
 
-const LineItemDetailCard = ({
+const CartLineItem = forwardRef(({
   order,
   user,
   lineItem,
   toggleQuantitiesUpdated,
   toggleLineItemRemoved,
   hasTransactions,
-  setCartCount
-}) => {
+}, ref) => {
   const [quantityOptions, setQuantityOptions] = useState([]);
   const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -56,7 +55,8 @@ const LineItemDetailCard = ({
         .then((lineItemList) => {
           toggleLineItemRemoved();
           if (order.customerId === user.id) {
-            setCartCount(calculateCartCount(lineItemList));
+          /* eslint-disable no-param-reassign */
+            ref.current = (calculateCartCount(lineItemList));
           }
         }));
   };
@@ -81,7 +81,7 @@ const LineItemDetailCard = ({
           toggleQuantitiesUpdated();
           // update the cart icon if this is the cart owner and not an admin
           if (order.customerId === user.id) {
-            setCartCount(calculateCartCount(lineItemList));
+            ref.current = (calculateCartCount(lineItemList));
           }
         }));
   };
@@ -122,16 +122,17 @@ const LineItemDetailCard = ({
                   : <LineItemCountDisplay>Out of Stock</LineItemCountDisplay>)) }
     </LineItemOuterDiv>
   );
-};
+});
 
-LineItemDetailCard.propTypes = {
+CartLineItem.displayName = CartLineItem;
+
+CartLineItem.propTypes = {
   order: PropTypes.object,
   user: PropTypes.any,
   lineItem: PropTypes.object,
   toggleQuantitiesUpdated: PropTypes.func,
   toggleLineItemRemoved: PropTypes.func,
   hasTransactions: PropTypes.bool,
-  setCartCount: PropTypes.func
 };
 
-export default LineItemDetailCard;
+export default CartLineItem;
