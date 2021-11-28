@@ -81,7 +81,7 @@ const CartLineItem = forwardRef(({
           toggleQuantitiesUpdated();
           // update the cart icon if this is the cart owner and not an admin
           if (order.customerId === user.id) {
-            ref.current = (calculateCartCount(lineItemList));
+            ref.current(calculateCartCount(lineItemList));
           }
         }));
   };

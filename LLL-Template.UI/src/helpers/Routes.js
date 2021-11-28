@@ -201,4 +201,4 @@ Routes.propTypes = {
   setCartId: PropTypes.func
 };
 
-export default Routes;
+export default React.memo(Routes);

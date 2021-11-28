@@ -14,7 +14,7 @@ import { getUserWithRoleByEmail } from '../helpers/data/userData';
 import { getShoppingCart } from '../helpers/data/orderData';
 import { getLineItemsByOrderId } from '../helpers/data/lineItemData';
 import { calculateCartCount } from '../helpers/data/calculators';
-import { CartProvider } from '../helpers/cartContext';
+// import { CartProvider } from '../helpers/cartContext';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
@@ -86,11 +86,11 @@ export default function App() {
 
   return (
     <div className='App'>
-      <CartProvider value={cartCount}>
       <Router>
         <Sidebar isOpen={isOpen} toggle={toggle} user={user} />
-        <NavBar toggle={toggle} user={user}
-          cartId={cartId}/>
+          <NavBar toggle={toggle} user={user}
+            cartCount={cartCount}
+            cartId={cartId}/>
         <Routes user={user} setUser={setUser}
                 categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
                 products={products} setProducts={setProducts}
@@ -99,7 +99,6 @@ export default function App() {
         />
         <Footer />
       </Router>
-      </CartProvider>
     </div>
   );
 }

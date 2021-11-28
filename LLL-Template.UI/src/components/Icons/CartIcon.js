@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import {
@@ -7,23 +7,13 @@ import {
   CartCountDiv
 } from './CartIconsElements';
 import bag from '../../Assets/NavBarIcons/bag.png';
+// import { CartContext } from '../../helpers/cartContext';
 
-const CartIcon = forwardRef(({
-  cartId
-}, ref) => {
+const CartIcon = ({
+  cartId,
+  cartCount
+}) => {
   const history = useHistory();
-  const [cartCount, setCartCount] = useState(0);
-
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) {
-      setCartCount(ref.current);
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [ref.current]);
-
   const handleClick = () => {
     if (cartId !== '') {
       history.push(`/orders/${cartId}`);
@@ -37,13 +27,11 @@ const CartIcon = forwardRef(({
     </BagDiv>
     </>
   );
-});
-
-CartIcon.displayName = CartIcon;
+};
 
 CartIcon.propTypes = {
-  cartCount: PropTypes.number,
-  cartId: PropTypes.string
+  cartId: PropTypes.string,
+  cartCount: PropTypes.cartCount
 };
 
 export default CartIcon;
