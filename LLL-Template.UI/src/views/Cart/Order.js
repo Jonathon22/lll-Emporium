@@ -432,4 +432,4 @@ OrderDetailView.propTypes = {
   setCartId: PropTypes.func
 };
 
-export default React.memo(OrderDetailView);
+export default OrderDetailView;

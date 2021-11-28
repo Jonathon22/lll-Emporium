@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -33,13 +33,12 @@ import {
 } from '../../../helpers/data/lineItemData';
 import { calculateCartCount } from '../../../helpers/data/calculators';
 
-const SingleProductCard = ({
+const SingleProductCard = forwardRef(({
   setProducts,
   productTypes,
   user,
-  setCartCount,
   setCartId,
-}) => {
+}, ref) => {
   const history = useHistory();
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -97,7 +96,7 @@ const SingleProductCard = ({
                   addOrderLine(lineItemObj)
                     .then(() => {
                       getLineItemsByOrderId(cartId)
-                        .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                        .then((lineItemList) => ref.current(calculateCartCount(lineItemList)));
                     });
                 }
               });
@@ -118,7 +117,7 @@ const SingleProductCard = ({
                 updateOrderLine(resultObj.id, lineItemObj)
                   .then(() => {
                     getLineItemsByOrderId(cart.id)
-                      .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                      .then((lineItemList) => ref.current(calculateCartCount(lineItemList)));
                   });
               } else { // not already in cart
                 const newLineItemObj = {
@@ -130,7 +129,7 @@ const SingleProductCard = ({
                 addOrderLine(newLineItemObj)
                   .then(() => {
                     getLineItemsByOrderId(cart.id)
-                      .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                      .then((lineItemList) => ref.current(calculateCartCount(lineItemList)));
                   });
               }
             });
@@ -231,7 +230,7 @@ const SingleProductCard = ({
       </SingleProductCards>
     </SingleProductContainer>
   );
-};
+});
 
 SingleProductCard.propTypes = {
   product: PropTypes.any,
@@ -239,7 +238,6 @@ SingleProductCard.propTypes = {
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
   id: PropTypes.string,
-  setCartCount: PropTypes.func,
   setCartId: PropTypes.func,
   user: PropTypes.any,
 };

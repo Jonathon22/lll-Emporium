@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, memo } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Home from '../views/Home/Home';
@@ -201,4 +201,4 @@ Routes.propTypes = {
   setCartId: PropTypes.func
 };
 
-export default React.memo(Routes);
+export default memo(Routes);

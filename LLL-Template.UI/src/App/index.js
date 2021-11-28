@@ -14,7 +14,6 @@ import { getUserWithRoleByEmail } from '../helpers/data/userData';
 import { getShoppingCart } from '../helpers/data/orderData';
 import { getLineItemsByOrderId } from '../helpers/data/lineItemData';
 import { calculateCartCount } from '../helpers/data/calculators';
-// import { CartProvider } from '../helpers/cartContext';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
@@ -24,8 +23,7 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [cartId, setCartId] = useState('');
   const [cartCount, setCartCount] = useState(0);
-  const countRef = useRef();
-  countRef.current = setCartCount;
+  const countRef = useRef(setCartCount);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
