@@ -90,7 +90,7 @@ export default function App() {
       <Router>
         <Sidebar isOpen={isOpen} toggle={toggle} user={user} />
         <NavBar toggle={toggle} user={user}
-          ref={cartCount} cartId={cartId}/>
+          cartId={cartId}/>
         <Routes user={user} setUser={setUser}
                 categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
                 products={products} setProducts={setProducts}

@@ -56,7 +56,7 @@ const CartLineItem = forwardRef(({
           toggleLineItemRemoved();
           if (order.customerId === user.id) {
           /* eslint-disable no-param-reassign */
-            ref.current = (calculateCartCount(lineItemList));
+            ref.current(calculateCartCount(lineItemList));
           }
         }));
   };
