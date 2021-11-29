@@ -1,8 +1,7 @@
 
 ## Welcome to Live Laugh Love Emporium!
 Your one stop shop for LLL enthusiasts.
-
-Screenshot????
+![Screenshot (35)](https://user-images.githubusercontent.com/74842096/143957192-be45649b-0cd9-4e4d-9b76-45782a948c86.png)
 
 ## Netlify Link
 
