@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import UserCard from '../../components/Cards/UserCards/UserCards';
-import { getAllUsers } from '../../helpers/data/userData';
-// import { userForm } from '../../components/Forms/UserForms/UserForms';
+import { getUsers } from '../../helpers/data/userData';
 
 const userCardView = () => {
   const [userGroup, setUserGroup] = useState([]);
 
   useEffect(() => {
-    getAllUsers().then((userList) => {
+    getUsers().then((userList) => {
       setUserGroup(userList);
     });
   }, []);
@@ -15,10 +15,14 @@ const userCardView = () => {
   return (
     <>
       {userGroup.map((userObj) => (
-        <UserCard key={userObj.id} bio={userObj.bio} profilePicUrl={userObj.profilePicUrl} />
+        <UserCard FirstName={userObj.FirstName} LastName={userObj.LastName} key={userObj.id} bio={userObj.bio} profilePicUrl={userObj.profilePicUrl} />
       ))}
     </>
   );
+};
+
+userCardView.propTypes = {
+  userGroup: PropTypes.any
 };
 
 export default userCardView;
