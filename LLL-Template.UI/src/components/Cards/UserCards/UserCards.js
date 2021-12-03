@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import UserForms from '../../Forms/UserForms/UserForms';
+import UserForm from '../../Forms/UserForms/UserForms';
 
 import {
   Card,
@@ -13,17 +13,21 @@ import {
   ButtonModal
 } from './UserCardElements';
 
-export const UserCard = ({
+const UserCard = ({
   id,
   profilePicUrl,
   bio,
-  FirstName,
-  LastName,
-  RoleTypeId,
+  firstName,
+  lastName,
+  roleTypeId,
 }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
+    console.warn(id);
+    console.warn(firstName);
+    console.warn(lastName);
+    console.warn(roleTypeId);
     setIsOpen(true);
   }
 
@@ -46,11 +50,11 @@ export const UserCard = ({
             >
               <ButtonModal className="modalClose" onClick={closeModal}>
               </ButtonModal>
-              <UserForms
-                editUserForm="Edit User"
-                FirstName={FirstName}
-                LastName={LastName}
-                RoleTypeId={RoleTypeId}
+              <UserForm
+              id={id}
+              firstName={firstName}
+              lastName={lastName}
+              roleTypeId={roleTypeId}
               />
             </Modal>
           </UserCardButtons>
@@ -60,9 +64,9 @@ export const UserCard = ({
 };
 
 UserCard.propTypes = {
-  FirstName: PropTypes.string,
-  LastName: PropTypes.string,
-  RoleTypeId: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  roleTypeId: PropTypes.string,
   id: PropTypes.string,
   profilePicUrl: PropTypes.string,
   bio: PropTypes.string,
